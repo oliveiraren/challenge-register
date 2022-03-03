@@ -67,7 +67,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return cpf;
     }
 
     public String getFirstName() {

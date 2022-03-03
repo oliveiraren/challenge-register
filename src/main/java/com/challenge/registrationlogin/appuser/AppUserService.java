@@ -23,17 +23,25 @@ public class AppUserService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
+    public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
+        return appUserRepository.findByCpf(cpf)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
 
     public String signUpUser(AppUser appUser){
-        boolean userExists = appUserRepository
+        boolean userExistsCpf = appUserRepository
+                .findByCpf(appUser.getCpf())
+                .isPresent();
+
+        if (userExistsCpf) {
+            throw new IllegalStateException("CPF já cadastrado");
+        }
+
+        boolean userExistsEmail = appUserRepository
                 .findByEmail(appUser.getEmail())
                 .isPresent();
 
-        if (userExists) {
+        if (userExistsEmail) {
             throw new IllegalStateException("E-mail já cadastrado");
         }
 
