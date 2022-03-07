@@ -1,5 +1,7 @@
-package com.challenge.registrationlogin.registration;
+package com.challenge.registrationlogin.controller;
 
+import com.challenge.registrationlogin.registration.RegistrationRequest;
+import com.challenge.registrationlogin.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ public class RegistrarionController {
     private final RegistrationService registrationService;
 
     @PostMapping
-    public String register(@RequestBody RegistrationRequest request){
+    public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }
 
