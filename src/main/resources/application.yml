@@ -18,6 +18,6 @@ spring:
     show-sql: true
 
   rabbitmq:
-    addresses: amqps://nkepulbm:nDmoTsoEqOmJROMa9i0BL9jWzB78SXuU@beaver.rmq.cloudamqp.com/nkepulbm
-    queue: challenge.hmv.email
+    addresses:
+    queue:
 

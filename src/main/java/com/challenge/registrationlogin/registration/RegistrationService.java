@@ -3,11 +3,17 @@ package com.challenge.registrationlogin.registration;
 import com.challenge.registrationlogin.appuser.AppUser;
 import com.challenge.registrationlogin.appuser.AppUserRole;
 import com.challenge.registrationlogin.appuser.AppUserService;
+import com.challenge.registrationlogin.email.EmailRegistration;
 import com.challenge.registrationlogin.registration.EmailValidator;
 import com.challenge.registrationlogin.registration.RegistrationRequest;
 import com.challenge.registrationlogin.config.RabbitMQConfig;
 import com.challenge.registrationlogin.registration.token.ConfirmationToken;
 import com.challenge.registrationlogin.registration.token.ConfirmationTokenService;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -42,9 +48,14 @@ public class RegistrationService {
                 )
         );
 
-        String retornoJson = "{\"from\":\"challengehmvfiap@gmail.com\",\"to\":\"challengehmvfiap@gmail.com,\"type\":\"Cadastro\",\"subject\":\"E-maildeTeste\",\"text\":\"Enviandoe-mail...\"}";
+        String link = "Para confirmar seu cadastro clique no link a seguir: http://localhost:8080/api/registration/confirm?token="
+                + token;
 
-        template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, retornoJson);
+        EmailRegistration emailRegistration = new EmailRegistration(
+                request.getEmail(),
+                link );
+
+        template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, emailRegistration);
 
         return token;
     }
