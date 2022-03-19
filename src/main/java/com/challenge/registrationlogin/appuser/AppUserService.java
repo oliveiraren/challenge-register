@@ -23,14 +23,14 @@ public class AppUserService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
-    public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-        return appUserRepository.findByCpf(cpf)
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        return appUserRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
 
     public String signUpUser(AppUser appUser){
         boolean userExistsCpf = appUserRepository
-                .findByCpf(appUser.getCpf())
+                .findByUserName(appUser.getUsername())
                 .isPresent();
 
         if (userExistsCpf) {

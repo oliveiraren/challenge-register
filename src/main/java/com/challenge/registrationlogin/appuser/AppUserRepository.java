@@ -20,6 +20,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
             "SET a.enabled = TRUE WHERE a.email = ?1")
     int enableAppUser(String email);
 
-    Optional<AppUser> findByCpf(String cpf);
+    Optional<AppUser> findByUserName(String userName);
 
 }

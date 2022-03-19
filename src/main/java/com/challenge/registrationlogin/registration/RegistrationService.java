@@ -41,7 +41,7 @@ public class RegistrationService {
         String token = appUserService.signUpUser(
                 new AppUser(
                         request.getFullName(),
-                        request.getCpf(),
+                        request.getUserName(),
                         request.getEmail(),
                         request.getPassword(),
                         AppUserRole.USER
