@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -30,9 +31,13 @@ public class AppUser implements UserDetails {
             generator = "user_sequence"
             )
     private Long id;
+    @NotEmpty
     private String fullName;
+    @NotEmpty
     private String cpf;
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;

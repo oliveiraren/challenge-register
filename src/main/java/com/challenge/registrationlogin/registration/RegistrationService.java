@@ -30,7 +30,7 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
 
-    public String register(RegistrationRequest request) {
+    public Object register(RegistrationRequest request) {
 
         boolean isValidEmail = emailValidator.isValidEmailAddress(request.getEmail());
 
@@ -57,7 +57,11 @@ public class RegistrationService {
 
         template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, emailRegistration);
 
-        return token;
+        RegistrationResponse registrationResponse = new RegistrationResponse(
+                token
+        );
+
+        return registrationResponse;
     }
 
     @Transactional
