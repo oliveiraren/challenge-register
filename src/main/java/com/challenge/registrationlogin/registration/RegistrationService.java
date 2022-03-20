@@ -48,7 +48,7 @@ public class RegistrationService {
                 )
         );
 
-        String link = "Para confirmar seu cadastro clique no link a seguir: http://localhost:8080/api/registration/confirm?token="
+        String link = "Para confirmar seu cadastro clique no link a seguir: https://challenge-registration.herokuapp.com/api/registration/confirm?token="
                 + token;
 
         EmailRegistration emailRegistration = new EmailRegistration(

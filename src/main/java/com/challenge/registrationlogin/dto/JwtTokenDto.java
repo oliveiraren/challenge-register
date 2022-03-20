@@ -14,5 +14,5 @@ public class JwtTokenDto {
     private Long id;
     private String name;
     private String email;
-    
+
 }

@@ -19,5 +19,5 @@ spring:
 
   rabbitmq:
     addresses: ${RABBITMQ_ADDRESSES}
-    queue: challenge.hmv.email
+    queue: ${RABBITMQ_QUEUE}
 
