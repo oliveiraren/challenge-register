@@ -1,7 +1,9 @@
 package com.challenge.registrationlogin.controller;
 
+import com.challenge.registrationlogin.appuser.AppUser;
 import com.challenge.registrationlogin.dto.JwtTokenDto;
 import com.challenge.registrationlogin.login.LoginRequest;
+import com.challenge.registrationlogin.login.LoginService;
 import com.challenge.registrationlogin.security.config.JwtTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @RestController
 @RequestMapping(path = "api/login")
 @AllArgsConstructor
@@ -23,6 +28,8 @@ public class LoginController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenService jwtTokenService;
+    @Autowired
+    private LoginService loginService;
 
     @PostMapping
     public ResponseEntity<JwtTokenDto> autentica(@RequestBody LoginRequest loginRequest){
@@ -30,6 +37,9 @@ public class LoginController {
         Authentication authentication = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authentication);
         String token = jwtTokenService.geraToken(authenticate);
-        return ResponseEntity.ok(new JwtTokenDto(token, "Bearer"));
+        Long id = jwtTokenService.pegarIdUsuario(token);
+        AppUser appUser = loginService.buscarPorId(id);
+        String firstName = appUser.getFullName().split(" ")[0];
+        return ResponseEntity.ok(new JwtTokenDto(token, "Bearer", appUser.getId(), firstName, appUser.getEmail()));
     }
 }
