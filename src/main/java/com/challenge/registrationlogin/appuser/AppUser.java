@@ -31,9 +31,14 @@ public class AppUser implements UserDetails {
             generator = "user_sequence"
             )
     private Long id;
+    @NotEmpty
     private String fullName;
+    @NotEmpty
+    @Column(name = "cpf")
     private String userName;
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
