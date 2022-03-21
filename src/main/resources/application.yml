@@ -18,5 +18,5 @@ spring:
     show-sql: true
 
   rabbitmq:
-    addressUrl: ${RABBITMQ_ADDRESSURL} #'http://localhost:15672'
+    addresses: ${RABBITMQ_ADDRESSES} #'http://localhost:15672'
     queue: ${RABBITMQ_QUEUE} #email
