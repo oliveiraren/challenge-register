@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: hmvapp
+    networks:
+      - default
+    depends_on:
+      - rabbitmq
+      - postgres
+    restart: on-failure
+    environment:
+      - POSTGRES_URL=jdbc:postgresql://localhost:5432/postgres
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DDLAUTO=update
+      - RABBITMQ_ADDRESSURL=http://localhost:15672
+      - RABBITMQ_QUEUE=EMAIL
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - default
+
+  postgres:
+    image: postgres:13.1
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    container_name: db
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+
+networks:
+  default:
+    driver: bridge
