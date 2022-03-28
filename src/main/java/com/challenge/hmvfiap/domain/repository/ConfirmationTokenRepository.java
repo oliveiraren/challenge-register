@@ -1,6 +1,6 @@
 package com.challenge.hmvfiap.domain.repository;
 
-import com.challenge.hmvfiap.domain.entity.JwtToken;
+import com.challenge.hmvfiap.domain.entity.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public interface JwtTokenRepository extends JpaRepository<JwtToken, Long> {
+public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
 
-    Optional<JwtToken> findByToken(String token);
+    Optional<ConfirmationToken> findByToken(String token);
 
     @Transactional
     @Modifying
-    @Query("UPDATE JwtToken c SET c.confirmedAt = ?2 WHERE c.token = ?1")
+    @Query("UPDATE ConfirmationToken c " +
+            "SET c.confirmedAt = ?2 " +
+            "WHERE c.token = ?1")
     void updateConfirmedAt(String token, LocalDateTime confirmedAt);
 }

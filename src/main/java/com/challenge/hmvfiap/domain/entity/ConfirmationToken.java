@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class JwtToken {
+public class ConfirmationToken {
 
     @SequenceGenerator(
             name = "confirmation_token_sequence",
@@ -43,10 +43,10 @@ public class JwtToken {
     )
     private AppUser appUser;
 
-    public JwtToken(String token,
-                    LocalDateTime createdAt,
-                    LocalDateTime expiresAt,
-                    AppUser appUser) {
+    public ConfirmationToken(String token,
+                             LocalDateTime createdAt,
+                             LocalDateTime expiresAt,
+                             AppUser appUser) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;

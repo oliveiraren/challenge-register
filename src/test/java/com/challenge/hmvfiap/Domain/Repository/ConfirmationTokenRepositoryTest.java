@@ -1,7 +1,7 @@
 package com.challenge.hmvfiap.Domain.Repository;
 
-import com.challenge.hmvfiap.domain.entity.JwtToken;
-import com.challenge.hmvfiap.domain.repository.JwtTokenRepository;
+import com.challenge.hmvfiap.domain.entity.ConfirmationToken;
+import com.challenge.hmvfiap.domain.repository.ConfirmationTokenRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class JwtTokenRepositoryTest {
+public class ConfirmationTokenRepositoryTest {
 
     @Autowired
     private DataSource dataSource;
@@ -26,19 +26,19 @@ public class JwtTokenRepositoryTest {
     @Autowired
     private EntityManager entityManager;
     @Autowired
-    private JwtTokenRepository jwtTokenRepository;
+    private ConfirmationTokenRepository confirmationTokenRepository;
 
-    private JwtToken jwtToken;
+    private ConfirmationToken confirmationToken;
 
     @BeforeEach
     public void setup() {
-        jwtToken = new JwtToken();
+        confirmationToken = new ConfirmationToken();
     }
 
     @Test
     public void shouldAddTriageRecord() {
-        jwtTokenRepository.save(jwtToken);
-        assertNotNull(jwtToken.getToken());
+        confirmationTokenRepository.save(confirmationToken);
+        assertNotNull(confirmationToken.getToken());
     }
 
 }

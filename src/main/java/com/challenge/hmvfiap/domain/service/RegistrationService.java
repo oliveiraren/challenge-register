@@ -5,7 +5,7 @@ import com.challenge.hmvfiap.api.dto.RegistrationInputDTO;
 import com.challenge.hmvfiap.api.dto.RegistrationOutputDTO;
 import com.challenge.hmvfiap.core.config.RabbitMQConfig;
 import com.challenge.hmvfiap.domain.entity.AppUser;
-import com.challenge.hmvfiap.domain.entity.JwtToken;
+import com.challenge.hmvfiap.domain.entity.ConfirmationToken;
 import com.challenge.hmvfiap.domain.enums.UserRole;
 import com.challenge.hmvfiap.domain.validator.EmailValidator;
 import lombok.AllArgsConstructor;
@@ -56,16 +56,16 @@ public class RegistrationService {
 
     @Transactional
     public String confirmToken(String token) {
-        JwtToken confirmationJwtToken = confirmationTokenService
+        ConfirmationToken confirmationConfirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
                         new IllegalStateException("Token não encontrado"));
 
-        if (confirmationJwtToken.getConfirmedAt() != null) {
+        if (confirmationConfirmationToken.getConfirmedAt() != null) {
             throw new IllegalStateException("E-mail já confirmado");
         }
 
-        LocalDateTime expiredAt = confirmationJwtToken.getExpiresAt();
+        LocalDateTime expiredAt = confirmationConfirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("Token expirado");
@@ -73,7 +73,7 @@ public class RegistrationService {
 
         confirmationTokenService.setConfirmedAt(token);
         userService.enableAppUser(
-                confirmationJwtToken.getAppUser().getEmail());
+                confirmationConfirmationToken.getAppUser().getEmail());
         return "Confirmado";
     }
 

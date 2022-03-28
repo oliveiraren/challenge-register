@@ -1,7 +1,7 @@
 package com.challenge.hmvfiap.domain.service;
 
 import com.challenge.hmvfiap.domain.entity.AppUser;
-import com.challenge.hmvfiap.domain.entity.JwtToken;
+import com.challenge.hmvfiap.domain.entity.ConfirmationToken;
 import com.challenge.hmvfiap.domain.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 
         String token = UUID.randomUUID().toString();
 
-        JwtToken confirmationJwtToken = new JwtToken(
+        ConfirmationToken confirmationConfirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
@@ -63,7 +63,7 @@ public class UserService implements UserDetailsService {
         );
 
         confirmationTokenService.saveConfirmationToken(
-                confirmationJwtToken);
+                confirmationConfirmationToken);
 
         return token;
     }

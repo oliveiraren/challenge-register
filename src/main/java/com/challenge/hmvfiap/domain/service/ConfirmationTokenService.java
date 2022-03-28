@@ -1,7 +1,7 @@
 package com.challenge.hmvfiap.domain.service;
 
-import com.challenge.hmvfiap.domain.entity.JwtToken;
-import com.challenge.hmvfiap.domain.repository.JwtTokenRepository;
+import com.challenge.hmvfiap.domain.entity.ConfirmationToken;
+import com.challenge.hmvfiap.domain.repository.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +12,18 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ConfirmationTokenService {
 
-    private final JwtTokenRepository jwtTokenRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public void saveConfirmationToken(JwtToken jwtToken) {
-        jwtTokenRepository.save(jwtToken);
+    public void saveConfirmationToken(ConfirmationToken confirmationToken) {
+        confirmationTokenRepository.save(confirmationToken);
     }
 
-    public Optional<JwtToken> getToken(String token) {
-        return jwtTokenRepository.findByToken(token);
+    public Optional<ConfirmationToken> getToken(String token) {
+        return confirmationTokenRepository.findByToken(token);
     }
 
     public void setConfirmedAt(String token) {
-        jwtTokenRepository
+        confirmationTokenRepository
                 .updateConfirmedAt(
                         token, LocalDateTime.now());
     }
