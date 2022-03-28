@@ -1,8 +1,8 @@
 package com.challenge.hmvfiap.domain.service;
 
-import com.challenge.hmvfiap.domain.entity.User;
-import com.challenge.hmvfiap.domain.repository.UserRepository;
+import com.challenge.hmvfiap.domain.entity.AppUser;
 import com.challenge.hmvfiap.domain.entity.JwtToken;
+import com.challenge.hmvfiap.domain.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,31 +15,31 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "Cadastro não encontrado";
 
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return userRepository.findByUserName(userName)
+        return appUserRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
 
-    public String signUpUser(User user) {
-        boolean userExistsCpf = userRepository
-                .findByUserName(user.getUsername())
+    public String signUpUser(AppUser appUser) {
+        boolean userExistsCpf = appUserRepository
+                .findByUserName(appUser.getUsername())
                 .isPresent();
 
         if (userExistsCpf) {
             throw new IllegalStateException("CPF já cadastrado");
         }
 
-        boolean userExistsEmail = userRepository
-                .findByEmail(user.getEmail())
+        boolean userExistsEmail = appUserRepository
+                .findByEmail(appUser.getEmail())
                 .isPresent();
 
         if (userExistsEmail) {
@@ -47,11 +47,11 @@ public class AppUserService implements UserDetailsService {
         }
 
         String encodedPassword = bCryptPasswordEncoder
-                .encode(user.getPassword());
+                .encode(appUser.getPassword());
 
-        user.setPassword(encodedPassword);
+        appUser.setPassword(encodedPassword);
 
-        userRepository.save(user);
+        appUserRepository.save(appUser);
 
         String token = UUID.randomUUID().toString();
 
@@ -59,7 +59,7 @@ public class AppUserService implements UserDetailsService {
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
-                user
+                appUser
         );
 
         confirmationTokenService.saveConfirmationToken(
@@ -69,6 +69,6 @@ public class AppUserService implements UserDetailsService {
     }
 
     public void enableAppUser(String email) {
-        userRepository.enableAppUser(email);
+        appUserRepository.enableAppUser(email);
     }
 }

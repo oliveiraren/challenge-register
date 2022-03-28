@@ -1,7 +1,7 @@
 package com.challenge.hmvfiap.core.filter;
 
+import com.challenge.hmvfiap.domain.entity.AppUser;
 import com.challenge.hmvfiap.domain.service.JwtTokenService;
-import com.challenge.hmvfiap.domain.entity.User;
 import com.challenge.hmvfiap.domain.service.LoginService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,8 +44,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private void autorizaUsuario(String token) {
         Long id = tokenService.pegarIdUsuario(token);
-        User user = loginService.buscarPorId(id);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        AppUser appUser = loginService.buscarPorId(id);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(appUser, null, appUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

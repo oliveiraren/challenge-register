@@ -23,7 +23,6 @@ public class JwtToken {
             strategy = GenerationType.SEQUENCE,
             generator = "confirmation_token_sequence"
     )
-
     private Long id;
 
     @Column(nullable = false)
@@ -42,15 +41,15 @@ public class JwtToken {
             nullable = false,
             name = "app_user_id"
     )
-    private User user;
+    private AppUser appUser;
 
     public JwtToken(String token,
                     LocalDateTime createdAt,
                     LocalDateTime expiresAt,
-                    User user) {
+                    AppUser appUser) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.user = user;
+        this.appUser = appUser;
     }
 }

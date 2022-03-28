@@ -11,15 +11,12 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public interface ConfirmationTokenRepository extends JpaRepository<JwtToken, Long> {
+public interface JwtTokenRepository extends JpaRepository<JwtToken, Long> {
 
     Optional<JwtToken> findByToken(String token);
 
     @Transactional
     @Modifying
-    @Query("UPDATE JwtToken c " +
-            "SET c.confirmedAt = ?2 " +
-            "WHERE c.token = ?1")
-    void updateConfirmedAt(String token,
-                          LocalDateTime confirmedAt);
+    @Query("UPDATE JwtToken c SET c.confirmedAt = ?2 WHERE c.token = ?1")
+    void updateConfirmedAt(String token, LocalDateTime confirmedAt);
 }

@@ -1,8 +1,8 @@
 package com.challenge.hmvfiap.api.controller;
 
 import com.challenge.hmvfiap.api.dto.RegistrationInputDTO;
-import com.challenge.hmvfiap.domain.service.RegistrationService;
 import com.challenge.hmvfiap.domain.service.JwtTokenService;
+import com.challenge.hmvfiap.domain.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;

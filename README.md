@@ -1,3 +1,3 @@
-# challenge-register
+# challenge-hmv-fiap
 
-API de cadastro e login
+API de cadastro, login e triagem

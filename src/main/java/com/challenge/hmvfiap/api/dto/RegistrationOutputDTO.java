@@ -1,14 +1,8 @@
 package com.challenge.hmvfiap.api.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@Data
 public class RegistrationOutputDTO {
     private final boolean status = true;
     private String token;

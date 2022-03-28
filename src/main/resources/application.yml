@@ -4,6 +4,9 @@ server:
     include-binding-errors: always
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     url: ${POSTGRES_URL} #jdbc:postgresql://localhost:5432/postgres
     username: ${POSTGRES_USER} #root

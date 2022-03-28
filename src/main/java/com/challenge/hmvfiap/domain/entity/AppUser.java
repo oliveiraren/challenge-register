@@ -19,7 +19,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @SequenceGenerator(
             name = "user_sequence",
@@ -32,31 +32,26 @@ public class User implements UserDetails {
             generator = "user_sequence"
     )
     private Long id;
+
     @NotEmpty
     private String fullName;
+
     @NotEmpty
     @Column(name = "cpf")
     private String userName;
+
     @NotEmpty
     private String email;
+
     @NotEmpty
     private String password;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-    private Boolean locked = false;
-    private Boolean enabled = false;
 
-    public User(String fullName,
-                String userName,
-                String email,
-                String password,
-                UserRole userRole) {
-        this.fullName = fullName;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-    }
+    private Boolean locked = false;
+
+    private Boolean enabled = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -102,8 +97,8 @@ public class User implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+        AppUser appUser = (AppUser) o;
+        return id != null && Objects.equals(id, appUser.id);
     }
 
     @Override

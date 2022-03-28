@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 public class UserHealthData {
 

@@ -1,6 +1,9 @@
 package com.challenge.hmvfiap.api.dto;
 
-import com.challenge.hmvfiap.domain.enums.*;
+import com.challenge.hmvfiap.domain.enums.PainActivities;
+import com.challenge.hmvfiap.domain.enums.PainCauses;
+import com.challenge.hmvfiap.domain.enums.PainFrequency;
+import com.challenge.hmvfiap.domain.enums.PainSite;
 import lombok.Data;
 
 @Data
@@ -34,5 +37,5 @@ public class TriageInputDTO {
 
     private PainActivities painActivities;
 
-    private PainDuration painDuration;
+    private Boolean painDuration;
 }

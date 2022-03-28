@@ -13,12 +13,7 @@ services:
       - postgres
     restart: on-failure
     environment:
-      - POSTGRES_URL=jdbc:postgresql://localhost:5432/postgres
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DDLAUTO=update
-      - RABBITMQ_ADDRESSURL=http://localhost:15672
-      - RABBITMQ_QUEUE=EMAIL
+      APP_PROFILE: test
 
   rabbitmq:
     image: rabbitmq:3-management
