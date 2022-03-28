@@ -1,7 +1,7 @@
 package com.challenge.hmvfiap.Domain.Repository;
 
 import com.challenge.hmvfiap.domain.entity.AppUser;
-import com.challenge.hmvfiap.domain.enums.UserRole;
+import com.challenge.hmvfiap.domain.enums.AppUserRole;
 import com.challenge.hmvfiap.domain.repository.AppUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,10 +61,10 @@ public class AppAppUserRepositoryTest {
     @Test
     public void ShouldUpdateAnUser() {
         appUserRepository.save(appUser);
-        appUser.setUserRole(UserRole.USER);
+        appUser.setUserName("Teste");
         appUserRepository.save(appUser);
         Optional<AppUser> userDb = appUserRepository.findById(appUser.getId());
         assertTrue(userDb.isPresent());
-        assertEquals(appUser.getUserRole(), userDb.get().getUserRole());
+        assertEquals(appUser.getUsername(), "Teste");
     }
 }

@@ -1,6 +1,6 @@
 package com.challenge.hmvfiap.domain.enums;
 
-public enum UserRole {
+public enum AppUserRole {
     USER,
     ADMIN
 }

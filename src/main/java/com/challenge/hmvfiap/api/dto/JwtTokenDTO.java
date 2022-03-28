@@ -1,10 +1,12 @@
 package com.challenge.hmvfiap.api.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
 @AllArgsConstructor
+@ToString
 public class JwtTokenDTO {
 
     private String token;

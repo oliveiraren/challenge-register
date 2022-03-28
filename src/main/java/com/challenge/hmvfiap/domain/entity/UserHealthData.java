@@ -44,8 +44,8 @@ public class UserHealthData {
                 this.heartAttackKinship.equals(that.heartAttackKinship) &&
                 this.obese == that.obese &&
                 this.medication == that.medication &&
-                this.medicationWhich.equals(that.medicationWhich) &&
+                this.medicationWhich == that.medicationWhich &&
                 this.allergy == that.allergy &&
-                this.drugAllergy.equals(that.drugAllergy);
+                this.drugAllergy == that.drugAllergy;
     }
 }

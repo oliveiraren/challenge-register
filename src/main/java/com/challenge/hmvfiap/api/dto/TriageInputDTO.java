@@ -17,9 +17,9 @@ public class TriageInputDTO {
 
     private Boolean obese;
 
-    private Boolean medcation;
+    private Boolean medication;
 
-    private String medcationWhich;
+    private String medicationWhich;
 
     private Boolean allergy;
 

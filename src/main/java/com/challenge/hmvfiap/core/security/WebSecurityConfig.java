@@ -3,7 +3,7 @@ package com.challenge.hmvfiap.core.security;
 import com.challenge.hmvfiap.core.filter.JwtTokenFilter;
 import com.challenge.hmvfiap.domain.service.JwtTokenService;
 import com.challenge.hmvfiap.domain.service.LoginService;
-import com.challenge.hmvfiap.domain.service.UserService;
+import com.challenge.hmvfiap.domain.service.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,19 +24,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenService jwtTokenService;
     private final LoginService loginService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().headers().frameOptions().sameOrigin().and().authorizeRequests()
+        http.cors().and().csrf().disable()
+                .headers().frameOptions().sameOrigin().and().authorizeRequests()
                 .antMatchers("/api/registration/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/test/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/triage/**").permitAll()
                 .anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilterBefore(
                         new JwtTokenFilter(jwtTokenService, loginService), UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Override
@@ -51,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
@@ -60,8 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider =
                 new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(userService);
+        provider.setUserDetailsService(appUserService);
         return provider;
     }
-
 }

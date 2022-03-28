@@ -12,15 +12,15 @@ import java.util.Date;
 @Service
 public class JwtTokenService {
 
-    private final String chave = "$TQ(TQ$RQ)K(RQGKQAGFW";
+    private String chave = "$TQ(TQ$RQ)K(RQGKQAGFW";
+    private Integer expiracao = 1800000;
 
     public String geraToken(Authentication authenticate) {
-        AppUser appUser = (AppUser) authenticate.getPrincipal();
+        AppUser user = (AppUser) authenticate.getPrincipal();
         Date hoje = new Date();
-        int expiracao = 1800000;
         Date DataExpiracao = new Date(hoje.getTime() + expiracao);
         return Jwts.builder()
-                .setSubject(appUser.getId().toString())
+                .setSubject(user.getId().toString())
                 .setIssuedAt(hoje)
                 .setExpiration(DataExpiracao)
                 .signWith(SignatureAlgorithm.HS512, chave)

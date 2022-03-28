@@ -1,8 +1,14 @@
 package com.challenge.hmvfiap.api.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class RegistrationInputDTO {
     private final String fullName;
     private final String userName;

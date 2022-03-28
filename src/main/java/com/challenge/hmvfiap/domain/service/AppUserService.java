@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class AppUserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "Cadastro não encontrado";
 
